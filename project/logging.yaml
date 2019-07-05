@@ -1,0 +1,44 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+  simple:
+    format: "%(asctime)s - [%(filename)s - %(funcName)s() ] - %(levelname)s - %(message)s"
+  errorFormat:
+    format: "%(asctime)s - [%(filename)s:%(lineno)s - %(funcName)s() ] - %(levelname)s - %(message)s"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: simple
+    stream: ext://sys.stdout
+  
+  app_file_handler:
+    class: logging.FileHandler
+    level: INFO
+    formatter: simple
+    filename: project/log/app.log
+  
+  access_file_handler:
+    class: logging.FileHandler
+    level: INFO
+    filename: project/log/access.log
+  
+  server_error_file_handler:
+    class: logging.FileHandler
+    level: ERROR
+    formatter: errorFormat
+    filename: project/log/error.log
+
+loggers:
+  server.app:
+    level: INFO
+    handlers: [console, app_file_handler]
+  
+  werkzeug:
+    level: INFO
+    handlers: [console, access_file_handler]
+  
+  server.error:
+    level: INFO
+    handlers: [console, server_error_file_handler]

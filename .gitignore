@@ -1,0 +1,11 @@
+.vscode/*
+*.py[cod]
+__pycache__/
+.pytest_cache/
+log/*
+*.log
+*.xml
+**/config.py
+client.py
+startup.sh
+conf.env
